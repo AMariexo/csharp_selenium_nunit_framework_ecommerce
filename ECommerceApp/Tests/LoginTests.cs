@@ -1,6 +1,7 @@
 ﻿using System;
 using ECommerceApp.Base;
 using ECommerceApp.Pages;
+using ECommerceApp.Utils;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -11,6 +12,7 @@ namespace ECommerceApp.Tests
     {
         private LoginPage login;
         private ProductsPage products;
+        private LoginData returnTestData;
 
         [SetUp]
         public void GoToLoginPage()
@@ -19,11 +21,12 @@ namespace ECommerceApp.Tests
         }
 
         [Test]
-        public void LoginSuccessfully()
+        public async Task LoginSuccessfully()
         {
             login = new LoginPage(driver);
             products = new ProductsPage(driver);
-            login.loginToECommerceSite("standard_user", "secret_sauce");
+            returnTestData = await ReturnTestData.GetLoginDataAsync();
+            login.loginToECommerceSite(returnTestData.Username, returnTestData.Password);
             Assert.AreEqual("Products", products.getProductTitle());
         }
 
@@ -34,7 +37,7 @@ namespace ECommerceApp.Tests
             login.enterUserName("");
             login.enterPassword("secret_sauce");
             login.clickLoginBtn();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username is required", login.getErrorMsg());
        }
 
@@ -45,7 +48,7 @@ namespace ECommerceApp.Tests
             login.enterUserName("standard_user");
             login.enterPassword("");
             login.clickLoginBtn();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Password is required", login.getErrorMsg());
         }
 
@@ -56,7 +59,7 @@ namespace ECommerceApp.Tests
             login.enterUserName("");
             login.enterPassword("");
             login.clickLoginBtn();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username is required", login.getErrorMsg());
         }
 
@@ -67,7 +70,7 @@ namespace ECommerceApp.Tests
             login.enterUserName("standard_user");
             login.enterPassword("asdadasdasd");
             login.clickLoginBtn();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username and password do not match any user in this service", login.getErrorMsg());
         }
 
@@ -78,7 +81,7 @@ namespace ECommerceApp.Tests
             login.enterUserName("standard_u$er@!");
             login.enterPassword("secret_sauce");
             login.clickLoginBtn();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username and password do not match any user in this service", login.getErrorMsg());
         }
 
@@ -89,7 +92,7 @@ namespace ECommerceApp.Tests
             login.enterUserName("asdadasdasd");
             login.enterPassword("secret_sauce");
             login.clickLoginBtn();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username and password do not match any user in this service", login.getErrorMsg());
         }
 
@@ -98,9 +101,11 @@ namespace ECommerceApp.Tests
         {
             login = new LoginPage(driver);
             login.clickLoginBtn();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username is required", login.getErrorMsg());
             login.clickErrorBtn();
+            Assert.IsFalse(login.isErrorMsgDisplayed());
+            
         }
 
     }

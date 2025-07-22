@@ -1,5 +1,6 @@
 ﻿using ECommerceApp.Base;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V136.Fetch;
 using OpenQA.Selenium.DevTools.V136.Network;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,19 @@ namespace ECommerceApp.Pages
         public void clickErrorBtn()
         {
             errorBtn.Click();
+        }
+
+        public bool isErrorMsgDisplayed()
+        {
+            try
+            {
+                return errorMsg.Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+
+                return false;
+            }
         }
 
         public string getErrorMsg()
