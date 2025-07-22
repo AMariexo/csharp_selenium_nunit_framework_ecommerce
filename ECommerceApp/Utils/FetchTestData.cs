@@ -9,6 +9,8 @@ namespace ECommerceApp.Utils
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public string IncorrectUsername { get; set; }
+        public string IncorrectPassword { get; set; }
     }
 
     public class ReturnTestData
