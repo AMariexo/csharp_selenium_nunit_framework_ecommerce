@@ -9,6 +9,8 @@ namespace ECommerceApp.Utils
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public string IncorrectUsername { get; set; }
+        public string IncorrectPassword { get; set; }
     }
 
     public class ReturnTestData
@@ -24,6 +26,8 @@ namespace ECommerceApp.Utils
 
             var json = await response.Content.ReadAsStringAsync();
 
+
+            //the property names in the test data file is 'lowercase' and the get/set parameters are upper case - this will allow for the property names to case insensitive
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true

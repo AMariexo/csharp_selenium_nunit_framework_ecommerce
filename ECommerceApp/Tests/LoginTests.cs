@@ -35,7 +35,7 @@ namespace ECommerceApp.Tests
         {
             login = new LoginPage(driver);
             login.enterUserName("");
-            login.enterPassword("secret_sauce");
+            login.enterPassword(returnTestData.Password);
             login.clickLoginBtn();
             Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username is required", login.getErrorMsg());
@@ -45,7 +45,7 @@ namespace ECommerceApp.Tests
         public void RequiredPassword()
         {
             login = new LoginPage(driver);
-            login.enterUserName("standard_user");
+            login.enterUserName(returnTestData.Username);
             login.enterPassword("");
             login.clickLoginBtn();
             Thread.Sleep(1000);
