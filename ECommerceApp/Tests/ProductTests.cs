@@ -46,5 +46,38 @@ namespace ECommerceApp.Tests
             Assert.IsTrue(products.productPriceDisplayedOnCard());
         }
 
+        [Test]
+        public void ClickAndSelectProductSortInAsenOrder()
+        {
+            products.clickProductSortDropDown();
+            products.selectProductSortOptions("Name (A to Z)");
+            Assert.IsTrue(products.isProductsSorted(false, false), "Sorting verification failed - products not sorted in A - Z");
+        }
+
+        [Test]
+        public void ClickAndSelectProductSortInDescOrder()
+        {
+            products.clickProductSortDropDown();
+            products.selectProductSortOptions("Name (Z to A)");
+            Assert.IsTrue(products.isProductsSorted(true, false), "Sorting verification failed - products not sorted by Z - A");
+        }
+
+        [Test]
+        public void ClickAndSelectProductPriceInDescOrder()
+        {
+            products.clickProductSortDropDown();
+            products.selectProductSortOptions("Price (high to low)");
+            Assert.IsTrue(products.isProductsSortedByPrice(true, true), "Sorting verification failed - products not sorted by Price (low to high)");
+        }
+
+        [Test]
+        public void ClickAndSelectProductPriceInAsenOrder()
+        {
+            products.clickProductSortDropDown();
+            products.selectProductSortOptions("Price (low to high)");
+            Assert.IsTrue(products.isProductsSortedByPrice(false, true), "Sorting verification failed - products not sorted by Price (high to low)");
+        }
+
+
     }
 }

@@ -1,7 +1,10 @@
 ﻿using ECommerceApp.Utils;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 
 namespace ECommerceApp.Pages
@@ -41,9 +44,15 @@ namespace ECommerceApp.Pages
         //product sort drop down
         private IWebElement productSortDropDown => driver.FindElement(By.ClassName("product_sort_container"));
 
+        //product options
+        private List<IWebElement> productOptions => driver.FindElements(By.XPath("//select[@class='product_sort_container']//option")).ToList();
+
+        private List<string> productsSorted = new List<string>();
+        private List<string> productsNotSorted = new List<string>();
+        private List<string> productPricesNotSorted = new List<string>();
+        private List<string> productPricesSorted = new List<string>();
 
 
-        
         public void clickAddToCart(int itemIndex)
         {
             addToCartBtns[itemIndex].Click();
@@ -106,9 +115,35 @@ namespace ECommerceApp.Pages
             return productSortDropDown.Displayed;
         }
 
+        public void selectProductSortOptions(String sortOption)
+        {
+            //gather a list of the current products on the page and add them to a list
+            productsNotSorted = inventoryNames.Select(name => name.Text).ToList();
+            //gather a list of the current prices on the page and add them to a list
+            productPricesNotSorted = inventoryPrices.Select(price => price.Text).ToList();
+
+            var option = productOptions.FirstOrDefault(o => o.Text.ToLower() == sortOption.ToLower());
+            option?.Click();
+
+            //wait for the shopping cart link to load
+            Common.waitFor(driver, By.ClassName("shopping_cart_link"), 3);
+
+            //gather a list of the current products on the page and add them to a list
+            productsSorted = inventoryNames.Select(n => n.Text).ToList();
+            productPricesSorted = inventoryPrices.Select(p => p.Text).ToList();
+
+        }
+
+        public bool isProductsSorted(bool isDesc, bool isPrice)
+        {
+            return Common.areElementsSorted(productsNotSorted, productsSorted, isDesc, isPrice);
+        }
 
 
-
+        public bool isProductsSortedByPrice(bool isDesc, bool isPrice)
+        {
+            return Common.areElementsSorted(productPricesNotSorted, productPricesSorted, isDesc, isPrice);
+        }
 
 
         public string getProductTitle()
