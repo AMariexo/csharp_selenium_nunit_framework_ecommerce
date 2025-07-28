@@ -57,6 +57,12 @@ Contains 8 tests:
 
 ## 🧪 Running the Tests
 
+### ▶ Locally - run the server in order to access the test data via the test scripts
+
+1. Open cmd prompt where the server is located
+2. type in `node server.js`
+3. keep server running in order for the test scripts to access the json test data
+
 ### ▶ From Visual Studio:
 
 1. Open the `.sln` in Visual Studio
