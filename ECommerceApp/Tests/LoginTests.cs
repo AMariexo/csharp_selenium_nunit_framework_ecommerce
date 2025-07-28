@@ -17,6 +17,7 @@ namespace ECommerceApp.Tests
         [SetUp]
         public void GoToLoginPage()
         {
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
         }
 
@@ -106,6 +107,23 @@ namespace ECommerceApp.Tests
             login.clickErrorBtn();
             Assert.IsFalse(login.isErrorMsgDisplayed());
             
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            var status = TestContext.CurrentContext.Result.Outcome.Status;
+            var message = TestContext.CurrentContext.Result.Message;
+
+            switch (status)
+            {
+                case NUnit.Framework.Interfaces.TestStatus.Passed:
+                    test.Pass("Test Passed");
+                    break;
+                case NUnit.Framework.Interfaces.TestStatus.Failed:
+                    test.Fail("The test failed.." + message);
+                    break;
+            }
         }
 
     }
