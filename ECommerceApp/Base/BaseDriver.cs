@@ -4,17 +4,22 @@ using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using AventStack.ExtentReports;
+using ECommerceApp.Utils;
 
 namespace ECommerceApp.Base
 {
     public class BaseDriver
     {
         public IWebDriver driver;
+        public ExtentReports extent;
+        public ExtentTest test;
 
         [SetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
+            extent = ExtentManager.GetExtent();
         }
 
         [TearDown]
@@ -22,6 +27,13 @@ namespace ECommerceApp.Base
         {
             driver.Close();
             driver.Quit();
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            //write to the report
+            extent.Flush();
         }
 
 
