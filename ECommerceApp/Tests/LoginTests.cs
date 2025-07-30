@@ -15,18 +15,18 @@ namespace ECommerceApp.Tests
         private LoginData returnTestData;
 
         [SetUp]
-        public void GoToLoginPage()
+        public async Task GoToLoginPage()
         {
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
+            returnTestData = await ReturnTestData.GetLoginDataAsync();
         }
 
         [Test]
-        public async Task LoginSuccessfully()
+        public void LoginSuccessfully()
         {
             login = new LoginPage(driver);
             products = new ProductsPage(driver);
-            returnTestData = await ReturnTestData.GetLoginDataAsync();
             login.loginToECommerceSite(returnTestData.Username, returnTestData.Password);
             Assert.AreEqual("Products", products.getProductTitle());
         }
@@ -68,8 +68,8 @@ namespace ECommerceApp.Tests
         public void InvalidUseranme()
         {
             login = new LoginPage(driver);
-            login.enterUserName("standard_user");
-            login.enterPassword("asdadasdasd");
+            login.enterUserName(returnTestData.Incorrect_Username);
+            login.enterPassword(returnTestData.Password);
             login.clickLoginBtn();
             Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username and password do not match any user in this service", login.getErrorMsg());
@@ -79,8 +79,8 @@ namespace ECommerceApp.Tests
         public void SpecialCharactersUsername()
         {
             login = new LoginPage(driver);
-            login.enterUserName("standard_u$er@!");
-            login.enterPassword("secret_sauce");
+            login.enterUserName(returnTestData.Special_Character_Username);
+            login.enterPassword(returnTestData.Password);
             login.clickLoginBtn();
             Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username and password do not match any user in this service", login.getErrorMsg());
@@ -90,8 +90,8 @@ namespace ECommerceApp.Tests
         public void InvalidPassword()
         {
             login = new LoginPage(driver);
-            login.enterUserName("asdadasdasd");
-            login.enterPassword("secret_sauce");
+            login.enterUserName(returnTestData.Username);
+            login.enterPassword(returnTestData.Incorrect_Password);
             login.clickLoginBtn();
             Thread.Sleep(1000);
             Assert.AreEqual("Epic sadface: Username and password do not match any user in this service", login.getErrorMsg());

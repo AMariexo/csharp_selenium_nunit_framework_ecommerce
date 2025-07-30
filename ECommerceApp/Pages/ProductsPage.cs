@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
@@ -32,6 +33,9 @@ namespace ECommerceApp.Pages
         //add to cart buttons
         private List<IWebElement> addToCartBtns => driver.FindElements(By.XPath("//button[text()='Add to cart']")).ToList();
 
+        //remove buttons
+        private List<IWebElement> removeFromCartBtns => driver.FindElements(By.Id("remove-sauce-labs-bike-light")).ToList();
+
         //price of the selected items by the user
         private List<IWebElement> priceOfSelectedItems => driver.FindElements(By.XPath("//button[text()='Remove']/parent::div/child::div")).ToList();
 
@@ -56,6 +60,46 @@ namespace ECommerceApp.Pages
         public void clickAddToCart(int itemIndex)
         {
             addToCartBtns[itemIndex].Click();
+        }
+
+        public void clickRemoveItem(int itemIndex)
+        {
+            foreach (IWebElement removeBtn in removeFromCartBtns)
+            {
+                Console.WriteLine(removeFromCartBtns.IndexOf(removeBtn));
+            }
+            removeFromCartBtns[itemIndex].Click();
+            //removeBtn.Click();
+            Thread.Sleep(2000);
+        }
+
+        public bool isShoppingCartBadgeDisplayed()
+        {
+            var doesExist = true;
+            try
+            {
+                doesExist = shoppingCartBadge.Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                doesExist = false;
+            }
+            return doesExist;
+        }
+
+        public bool isShoppingCartCount(int cartCount)
+        {
+            var doesExist = true;
+            try
+            {
+                doesExist = shoppingCartBadge.Text == cartCount.ToString();
+            }
+            catch (NoSuchElementException)
+            {
+                doesExist = false;
+
+            }
+            return doesExist;
         }
 
         public string totalPriceOfSelectedItems()
