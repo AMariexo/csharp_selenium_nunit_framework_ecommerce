@@ -17,13 +17,13 @@ namespace ECommerceApp.Tests
         private LoginData returnTestData;
 
         [SetUp]
-        public void SetupAndLogin ()
+        public async Task SetupAndLogin ()
         {
             login = new LoginPage(driver);
             products = new ProductsPage(driver);
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
-            //returnTestData = await ReturnTestData.GetLoginDataAsync();
-            login.loginToECommerceSite("standard_user", "secret_sauce");
+            returnTestData = await ReturnTestData.GetLoginDataAsync();
+            login.loginToECommerceSite(returnTestData.Username, returnTestData.Password);
         }
 
 
@@ -77,6 +77,26 @@ namespace ECommerceApp.Tests
             products.selectProductSortOptions("Price (low to high)");
             Assert.IsTrue(products.isProductsSortedByPrice(false, true), "Sorting verification failed - products not sorted by Price (high to low)");
         }
+
+        [Test]
+        public void AddProductToCart()
+        {
+            products.clickAddToCart(0);
+            Assert.IsTrue(products.isShoppingCartBadgeDisplayed(),"The shopping cart badge is not displayed after adding product to cart");
+            Assert.IsTrue(products.isShoppingCartCount(1), "The shopping cart count is not updated after adding product to cart");
+        }
+
+        [Test]
+        public void RemoveProductFromCart()
+        {
+            products.clickAddToCart(1);
+            Assert.IsTrue(products.isShoppingCartBadgeDisplayed(), "The shopping cart badge is not displayed after adding product to cart");
+            Assert.IsTrue(products.isShoppingCartCount(1), "The shopping cart count is not updated after adding product to cart");
+            products.clickRemoveItem(0);
+            Assert.IsFalse(products.isShoppingCartBadgeDisplayed(), "The shopping cart badge is displayed after removing product from cart");
+        }
+
+
 
 
     }
