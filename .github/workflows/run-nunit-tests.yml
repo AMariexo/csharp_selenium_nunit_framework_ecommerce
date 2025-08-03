@@ -19,9 +19,12 @@ jobs:
       with:
         dotnet-version: '8.0.x' # Or 7.0.x/6.0.x depending on your project
 
+    - name: List repo files
+      run: ls -R
+
     - name: Change Directory
-      run: cd ECommerceApp
-      
+      run: cd C:\Users\alyma\Source\repos\AMariexo\csharp_selenium_nunit_framework_ecommerce\ECommerceApp
+
     - name: Restore dependencies
       run: dotnet restore ECommerceApp.sln
 
