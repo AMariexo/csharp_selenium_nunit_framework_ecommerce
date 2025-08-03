@@ -23,7 +23,7 @@ jobs:
       run: ls -R
 
     - name: Change Directory
-      run: cd C:\Users\alyma\Source\repos\AMariexo\csharp_selenium_nunit_framework_ecommerce\ECommerceApp
+      run: cd ./ECommerceApp
 
     - name: Restore dependencies
       run: dotnet restore ECommerceApp.sln
