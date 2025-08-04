@@ -12,13 +12,19 @@ namespace ECommerceApp.Base
     public class BaseDriver
     {
         public IWebDriver driver;
+        public ChromeOptions options;
         public ExtentReports extent;
         public ExtentTest test;
 
         [SetUp]
         public void SetUp()
         {
-            driver = new ChromeDriver();
+            options = new ChromeOptions();
+            options.AddArgument("--headless=new"); // or "--headless" for older versions
+            options.AddArgument("--no-sandbox");
+            options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument($"--user-data-dir=/tmp/chrome-user-data-{Guid.NewGuid()}");
+            driver = new ChromeDriver(options);
             extent = ExtentManager.GetExtent();
         }
 
