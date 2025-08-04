@@ -19,11 +19,17 @@ jobs:
       with:
         dotnet-version: '8.0.x' # Or 7.0.x/6.0.x depending on your project
 
+    - name: List repo files
+      run: ls -R
+
+    - name: Change Directory
+      run: cd ./ECommerceApp
+
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./ECommerceApp/ECommerceApp.sln
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build ./ECommerceApp/ECommerceApp.sln --configuration Release
 
     - name: Run Login Tests
-      run: dotnet test --filter "FullyQualifiedName~LoginTests" --configuration Release
+      run: dotnet test ./ECommerceApp/ECommerceApp.sln --filter "FullyQualifiedName~LoginTests" --configuration Release
