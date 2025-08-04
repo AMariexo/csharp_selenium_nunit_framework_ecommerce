@@ -22,8 +22,9 @@ namespace ECommerceApp.Tests
             login = new LoginPage(driver);
             products = new ProductsPage(driver);
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
-            returnTestData = await ReturnTestData.GetLoginDataAsync();
-            login.loginToECommerceSite(returnTestData.Username, returnTestData.Password);
+            //returnTestData = await ReturnTestData.GetLoginDataAsync();
+            //login.loginToECommerceSite(returnTestData.Username, returnTestData.Password);
+            login.loginToECommerceSite("standard_user", "secret_sauce");
         }
 
 
