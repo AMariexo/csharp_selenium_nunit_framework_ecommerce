@@ -26,10 +26,10 @@ jobs:
       run: cd ./ECommerceApp
 
     - name: Restore dependencies
-      run: dotnet restore ECommerceApp.sln
+      run: dotnet restore ./ECommerceApp/ECommerceApp.sln
 
     - name: Build
-      run: dotnet build ECommerceApp.sln --configuration Release
+      run: dotnet build ./ECommerceApp/ECommerceApp.sln --configuration Release
 
     - name: Run Login Tests
-      run: dotnet test ECommerceApp.sln --filter "FullyQualifiedName~LoginTests" --configuration Release
+      run: dotnet test ./ECommerceApp/ECommerceApp.sln --filter "FullyQualifiedName~LoginTests" --configuration Release
