@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with: 
         name: ExtentReports
-        path: ECommerceApp/bin/Release/net8.0/Reports/
+        path: ./ECommerceApp/bin/Release/net8.0/Reports/
