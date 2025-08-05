@@ -31,3 +31,9 @@ jobs:
 
     - name: Run Login Tests
       run: dotnet test ./ECommerceApp/ECommerceApp.sln --filter "FullyQualifiedName~ProductTests" --configuration Release
+    
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v4
+      with: 
+        name: ExtentReports
+        path: ECommerceApp/bin/Release/net8.0/Reports/
