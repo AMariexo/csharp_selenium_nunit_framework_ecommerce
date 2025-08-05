@@ -30,4 +30,4 @@ jobs:
       run: dotnet build ./ECommerceApp/ECommerceApp.sln --configuration Release
 
     - name: Run Login Tests
-      run: dotnet test ./ECommerceApp/ECommerceApp.sln --filter "FullyQualifiedName~LoginTests" --configuration Release
+      run: dotnet test ./ECommerceApp/ECommerceApp.sln --filter "FullyQualifiedName~ProductTests" --configuration Release
