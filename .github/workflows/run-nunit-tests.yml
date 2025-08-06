@@ -30,4 +30,17 @@ jobs:
       run: dotnet build ./ECommerceApp/ECommerceApp.sln --configuration Release
 
     - name: Run Login Tests
-      run: dotnet test ./ECommerceApp/ECommerceApp.sln --filter "FullyQualifiedName~ProductTests" --configuration Release
+      run: dotnet test ./ECommerceApp/ECommerceApp.sln --filter "FullyQualifiedName~AllProductsAreDisplayed" --configuration Release
+
+    - name: Show current working directory
+      run: pwd
+
+    - name: List contents of bin/Release/net8.0
+      run: ls -R ./ECommerceApp/bin/Release/net8.0
+
+    
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v4
+      with: 
+        name: ExtentReports
+        path: ./ECommerceApp/bin/Release/net8.0/Reports/
