@@ -1,7 +1,7 @@
 name: .NET NUnit CI
 
 on:
-  pull_request:
+  merge:
     branches: [ master ]
 
 jobs:
