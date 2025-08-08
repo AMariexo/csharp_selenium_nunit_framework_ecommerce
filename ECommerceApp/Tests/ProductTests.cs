@@ -21,6 +21,7 @@ namespace ECommerceApp.Tests
         {
             login = new LoginPage(driver);
             products = new ProductsPage(driver);
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
             //returnTestData = await ReturnTestData.GetLoginDataAsync();
             //login.loginToECommerceSite(returnTestData.Username, returnTestData.Password);
@@ -95,6 +96,23 @@ namespace ECommerceApp.Tests
             Assert.IsTrue(products.isShoppingCartCount(1), "The shopping cart count is not updated after adding product to cart");
             products.clickRemoveItem(0);
             Assert.IsFalse(products.isShoppingCartBadgeDisplayed(), "The shopping cart badge is displayed after removing product from cart");
+        }
+
+        [TearDown]
+        public void afterEachTest()
+        {
+            var status = TestContext.CurrentContext.Result.Outcome.Status;
+            var message = TestContext.CurrentContext.Result.Message;
+
+            switch (status)
+            {
+                case NUnit.Framework.Interfaces.TestStatus.Passed:
+                    test.Pass("Test Passed");
+                    break;
+                case NUnit.Framework.Interfaces.TestStatus.Failed:
+                    test.Fail("The test failed.." + message);
+                    break;
+            }
         }
 
 
