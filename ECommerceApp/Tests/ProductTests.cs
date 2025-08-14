@@ -104,15 +104,7 @@ namespace ECommerceApp.Tests
             var status = TestContext.CurrentContext.Result.Outcome.Status;
             var message = TestContext.CurrentContext.Result.Message;
 
-            switch (status)
-            {
-                case NUnit.Framework.Interfaces.TestStatus.Passed:
-                    test.Pass("Test Passed");
-                    break;
-                case NUnit.Framework.Interfaces.TestStatus.Failed:
-                    test.Fail("The test failed.." + message);
-                    break;
-            }
+            ExtentManager.RecordResultsForEachTest(test, status, message);
         }
 
 
