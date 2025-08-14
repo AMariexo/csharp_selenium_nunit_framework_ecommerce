@@ -13,5 +13,5 @@ app.get("/login", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log('Test data server running at http://localhost:${PORT}`);
+    console.log(`Test data server running at http://localhost:${PORT}`);
 });
