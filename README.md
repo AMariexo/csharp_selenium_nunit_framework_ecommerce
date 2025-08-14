@@ -1,6 +1,10 @@
 
 ---
 
+## Overview
+
+This is an automation framwork for testing the SauceDemo e commerce site. The programming language used is C# using NUnit framework with Selenium as the UI automaton driver. A node server is executed in order to hit an API endpoint to access test data. Extent reports is consumed for reporting. These test scripts are kicked off when a branch is merged into master. 
+
 ## 🧪 Technologies Used
 
 | Tool               | Purpose                          |
@@ -36,7 +40,7 @@ Contains 8 tests:
   Encapsulates all locators and actions for the login screen.
 
 - **`ProductPage.cs`**  
-  Validates post-login behavior and product title.
+  Validates post-login behavior, product title, cart count, item sort by price and description (asending and desending)
 
 ---
 
