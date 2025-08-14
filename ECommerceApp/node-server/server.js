@@ -2,9 +2,12 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
+const path = require('path');
+
 
 app.get("/login", (req, res) => {
-    const data = fs.readFileSync('./TestData/loginData.json');
+    const filePath = path.join(__dirname, '..', 'TestData', 'loginData.json');
+    const data = fs.readFileSync(filePath);
     res.setHeader('Content-Type', 'application/json');
     res.json(JSON.parse(data));
 });
