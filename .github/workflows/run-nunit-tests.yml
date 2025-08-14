@@ -26,11 +26,11 @@ jobs:
       run: cd ./ECommerceApp
 
     - name: Install Node dependencies
-      working-directory: ./node-server
+      working-directory: ./ECommerceApp/node-server
       run: npm install
 
     - name: Start Node test data server
-      working-directory: ./node-server
+      working-directory: ./ECommerceApp/node-server
       run: |
         nohup npm start &
         sleep 5
