@@ -1,0 +1,7 @@
+{
+  "username": "standard_user",
+  "password": "secret_sauce",
+  "incorrect_username": "asdadsasd",
+  "incorrect_password": "asdasdasd",
+  "special_character_username": "standard_user!@#"
+}
