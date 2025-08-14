@@ -29,6 +29,11 @@ jobs:
       working-directory: ./ECommerceApp/node-server
       run: npm install
 
+    - name: Debug test data file path
+      run: |
+        echo "Checking loginData.json location..."
+        ls -l ./ECommerceApp/TestData
+
     - name: Start Node test data server
       working-directory: ./ECommerceApp/node-server
       run: |
