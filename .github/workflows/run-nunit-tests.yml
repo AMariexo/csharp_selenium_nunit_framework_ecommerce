@@ -21,6 +21,9 @@ jobs:
       uses: actions/setup-node@v4
       with: 
         node-version: '20'
+      
+    - name: Change Directory
+      run: cd ./ECommerceApp
 
     - name: Install Node dependencies
       working-directory: ./node-server
@@ -31,9 +34,6 @@ jobs:
       run: |
         nohup npm start &
         sleep 5
-
-    - name: Change Directory
-      run: cd ./ECommerceApp
 
     - name: Restore dependencies
       run: dotnet restore ./ECommerceApp/ECommerceApp.sln
