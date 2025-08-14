@@ -12,12 +12,6 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v4
 
-    - name: Show folder structure
-      run: |
-        echo "Listing current directory:"
-        ls -R
-
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
