@@ -4,7 +4,7 @@ const fs = require('fs');
 const app = express();
 
 app.get("/login", (req, res) => {
-    const data = fs.readFileSync('./loginData.json');
+    const data = fs.readFileSync('./TestData/loginData.json');
     res.setHeader('Content-Type', 'application/json');
     res.json(JSON.parse(data));
 });
