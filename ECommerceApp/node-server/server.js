@@ -12,7 +12,6 @@ app.get("/login", (req, res) => {
     res.json(JSON.parse(data));
 });
 
-app.listen(3000, () => {
-    console.log("API is running");
-        
-})
+app.listen(PORT, () => {
+    console.log('Test data server running at http://localhost:${PORT}`);
+});
