@@ -1,5 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +28,19 @@ namespace ECommerceApp.Utils
                 _extent.AttachReporter(_reporter);
             }
             return _extent;
+        }
+
+        public static void RecordResultsForEachTest(ExtentTest test, TestStatus status, String? message)
+        {
+            switch (status)
+            {
+                case NUnit.Framework.Interfaces.TestStatus.Passed:
+                    test.Pass("Test Passed");
+                    break;
+                case NUnit.Framework.Interfaces.TestStatus.Failed:
+                    test.Fail("The test failed.." + message);
+                    break;
+            }
         }
     }
 }
